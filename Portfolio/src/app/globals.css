@@ -2,16 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Jacquarda+Bastarda+9&display=swap');
+
+
 @layer base{
   
   :root {
-    --background: 27 27 27;
-    --foreground: 225 225 225;
-    --muted: 115 115 115;
-    --accent: 254 254 91; 
+    overflow-y: hidden;
+    --background: 7 7 7;
+    --foreground: 129 116 118;
+    --accent: 225 202 206; 
+    --accent2: 224 181 189;
   }
 
 }
+
+
 
 @layer utilities {
 

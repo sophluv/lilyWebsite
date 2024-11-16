@@ -15,12 +15,16 @@ export default function Flower(props) {
   
   const modelRef = useRef()
 
-  // useFrame((state, delta) => {
-  //   if (modelRef.current) {
-  //     modelRef.current.rotation.y += delta * 0.5; 
-  //   }
-  // });
-  
+  useFrame((state, delta) => {
+    if (modelRef.current) {
+      const time = state.clock.getElapsedTime(); 
+      const oscillationSpeed = 0.2; 
+      const rotationRange = Math.PI / 4; 
+
+      modelRef.current.rotation.y = Math.sin(time * oscillationSpeed) * rotationRange;
+    }
+  });
+
   return (
     <group {...props} 
     dispose={null}

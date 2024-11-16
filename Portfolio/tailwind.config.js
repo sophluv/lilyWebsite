@@ -8,15 +8,32 @@ module.exports = {
   theme: {
     extend: {
       fontFamily:{
-        inter: ['var(--font-inter)']
+        inter: ['var(--font-inter)'],
+        jacquarda: ['"Jacquarda Bastarda 9"', 'serif'], 
       },
       colors:{
         background: 'rgb(var(--background))',
         foreground: 'rgb(var(--foreground))',
         project: 'rgb(var(--project))',
-        muted: 'rgb(var(--muted))',
         accent: 'rgb(var(--accent))',
-      }
+        accent2: 'rgb(var(--accent2))',
+
+      },
+      animation: {
+        "slide-down": "slideDown 1s ease-in-out forwards",
+        "slide-up": "slideUp 1s ease-in-out forwards",
+
+      },
+      keyframes: {
+        slideDown: {
+          "0%": { transform: "translateY(0)" },
+          "100%": { transform: "translateY(-100%)" },
+        },
+        slideUp: {
+          "0%": { transform: "translateY(0)" },
+          "100%": { transform: "translateY(100%)" },
+        },
+      },
     },
   },
   plugins: [],
