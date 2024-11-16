@@ -8,17 +8,17 @@ import { FaLinkedin, FaGithub, FaInstagram } from "react-icons/fa";
 
 export default function Home() {
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [currentSection, setCurrentSection] = useState(0); // Track current section
+  const [currentSection, setCurrentSection] = useState(0);
 
-  const sections = ["#first-section", "#second-section"]; // Define sections
+  const sections = ["#home", "#contacts"]; 
 
   const handleScroll = (e) => {
-    if (isTransitioning) return; // Prevent triggering while transitioning
+    if (isTransitioning) return; 
 
-    const direction = e.deltaY > 0 ? 1 : -1; // Determine scroll direction (down or up)
+    const direction = e.deltaY > 0 ? 1 : -1; 
     const nextSection = currentSection + direction;
 
-    // Ensure next section is within bounds
+
     if (nextSection >= 0 && nextSection < sections.length) {
       setIsTransitioning(true);
       setCurrentSection(nextSection);
@@ -27,17 +27,17 @@ export default function Home() {
         document.querySelector(sections[nextSection]).scrollIntoView({
           behavior: "smooth",
         });
-        setIsTransitioning(false); // Allow transitions again
-      }, 5); // Delay matches animation duration
+        setIsTransitioning(false); 
+      }, 5); 
     }
   };
 
   useEffect(() => {
-    // Add wheel event listener
+
     window.addEventListener("wheel", handleScroll, { passive: true });
 
     return () => {
-      // Cleanup listener
+
       window.removeEventListener("wheel", handleScroll);
     };
   }, [currentSection, isTransitioning]);
@@ -46,7 +46,7 @@ export default function Home() {
     <div className="w-full h-full">
       {/* First Section */}
       <section
-        id="first-section"
+        id="home"
         className={`relative flex min-h-screen flex-col items-center justify-between ${
           isTransitioning && currentSection === 1 ? "animate-slide-down" : ""
         }`}
@@ -123,7 +123,7 @@ export default function Home() {
       {/* Button in Bottom-Right */}
       <button
         onClick={() => {
-          document.querySelector("#second-section").scrollIntoView({
+          document.querySelector("#contacts").scrollIntoView({
             behavior: "smooth",
           });
         }}
@@ -135,7 +135,7 @@ export default function Home() {
 
     {/* Second Section */}
     <section
-      id="second-section"
+      id="contacts"
       className="h-screen bg-black flex flex-col items-center justify-center relative"  // Added relative to make absolute children position correctly
     >
       {/* Title */}
@@ -187,7 +187,7 @@ export default function Home() {
       {/* Button in Bottom-Right */}
       <button
         onClick={() => {
-          document.querySelector("#first-section").scrollIntoView({
+          document.querySelector("#home").scrollIntoView({
             behavior: "smooth",
           });
         }}
