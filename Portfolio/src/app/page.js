@@ -10,14 +10,13 @@ export default function Home() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [currentSection, setCurrentSection] = useState(0);
 
-  const sections = ["#home", "#contacts"]; 
+  const sections = ["#home", "#contacts"];
 
   const handleScroll = (e) => {
-    if (isTransitioning) return; 
+    if (isTransitioning) return;
 
-    const direction = e.deltaY > 0 ? 1 : -1; 
+    const direction = e.deltaY > 0 ? 1 : -1;
     const nextSection = currentSection + direction;
-
 
     if (nextSection >= 0 && nextSection < sections.length) {
       setIsTransitioning(true);
@@ -27,23 +26,54 @@ export default function Home() {
         document.querySelector(sections[nextSection]).scrollIntoView({
           behavior: "smooth",
         });
-        setIsTransitioning(false); 
-      }, 5); 
+        setIsTransitioning(false);
+      }, 5);
     }
   };
 
-  useEffect(() => {
+  const handleButtonClick = (index) => {
+    setCurrentSection(index);
+    document.querySelector(sections[index]).scrollIntoView({
+      behavior: "smooth",
+    });
+  };
 
+  useEffect(() => {
     window.addEventListener("wheel", handleScroll, { passive: true });
 
     return () => {
-
       window.removeEventListener("wheel", handleScroll);
     };
   }, [currentSection, isTransitioning]);
 
   return (
     <div className="w-full h-full">
+      {/* Navbar */}
+      <nav className="fixed top-4 right-8 z-50 bg-opacity-80 px-3 py-2 rounded-lg shadow-lg">
+        <ul className="flex space-x-8 text-neutral-400 font-jacquarda text-xl">
+          <li>
+            <button
+              onClick={() => handleButtonClick(0)}
+              className={`hover:text-accent2 transition-colors ${
+                currentSection === 0 ? "text-accent2" : ""
+              }`}
+            >
+              Home
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() => handleButtonClick(1)}
+              className={`hover:text-accent2 transition-colors ${
+                currentSection === 1 ? "text-accent2" : ""
+              }`}
+            >
+              Contacts
+            </button>
+          </li>
+        </ul>
+      </nav>
+
       {/* First Section */}
       <section
         id="home"
@@ -119,86 +149,71 @@ export default function Home() {
         </div>
       </section>
 
-
       {/* Button in Bottom-Right */}
       <button
-        onClick={() => {
-          document.querySelector("#contacts").scrollIntoView({
-            behavior: "smooth",
-          });
-        }}
+        onClick={() => handleButtonClick(1)}
         className="absolute bottom-8 right-8 z-20 text-white text-7xl rotate-90 font-bold font-jacquarda cursor-pointer hover:-translate-y-1 transition-transform"
       >
         {"->"}
       </button>
 
-
-    {/* Second Section */}
-    <section
-      id="contacts"
-      className="h-screen bg-black flex flex-col items-center justify-center relative"  // Added relative to make absolute children position correctly
-    >
-      {/* Title */}
-      <p className="font-jacquarda text-6xl text-accent2 mb-4 ">
-        Contact me:
-      </p>
-
-      {/* Email */}
-      <a
-        href="mailto:yankovasofia@gmail.com"
-        className="font-inter text-xl text-white underline mb-10 hover:text-accent transition-colors"
-        >
-        yankovasofia@gmail.com
-      </a>
-
-      {/* Find Me At */}
-      <p className="font-inter text-l mb-10 translate-y-[800%] text-foreground ">
-        find me at
-      </p>
-
-      {/* Icon Links */}
-      <div className="flex space-x-8 mb-10 translate-y-[500%] text-white ">
-        <a
-          href="https://www.linkedin.com/in/sofia-yankova-92987a25a/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-4xl hover:text-accent transition-colors"
-        >
-          <FaLinkedin />
-        </a>
-        <a
-          href="https://github.com/sophluv"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-4xl hover:text-accent transition-colors"
-        >
-          <FaGithub />
-        </a>
-        <a
-          href="https://www.instagram.com/sophnni/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-4xl hover:text-accent transition-colors"
-        >
-          <FaInstagram />
-        </a>
-      </div>
-
-      {/* Button in Bottom-Right */}
-      <button
-        onClick={() => {
-          document.querySelector("#home").scrollIntoView({
-            behavior: "smooth",
-          });
-        }}
-        className="absolute bottom-8 right-8 z-20 text-white text-7xl -rotate-90 font-bold font-jacquarda cursor-pointer hover:-translate-y-1 transition-transform"
+      {/* Second Section */}
+      <section
+        id="contacts"
+        className="h-screen bg-black flex flex-col items-center justify-center relative"
       >
-        {"->"}
-      </button>
-    </section>
+        {/* Title */}
+        <p className="font-jacquarda text-6xl text-accent2 mb-4">Contact me:</p>
 
+        {/* Email */}
+        <a
+          href="mailto:yankovasofia@gmail.com"
+          className="font-inter text-xl text-white underline mb-10 hover:text-accent transition-colors"
+        >
+          yankovasofia@gmail.com
+        </a>
+
+        {/* Find Me At */}
+        <p className="font-inter text-l mb-10 translate-y-[800%] text-foreground">
+          find me at
+        </p>
+
+        {/* Icon Links */}
+        <div className="flex space-x-8 mb-10 translate-y-[500%] text-white">
+          <a
+            href="https://www.linkedin.com/in/sofia-yankova-92987a25a/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-4xl hover:text-accent transition-colors"
+          >
+            <FaLinkedin />
+          </a>
+          <a
+            href="https://github.com/sophluv"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-4xl hover:text-accent transition-colors"
+          >
+            <FaGithub />
+          </a>
+          <a
+            href="https://www.instagram.com/sophnni/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-4xl hover:text-accent transition-colors"
+          >
+            <FaInstagram />
+          </a>
+        </div>
+
+        {/* Button in Bottom-Right */}
+        <button
+          onClick={() => handleButtonClick(0)}
+          className="absolute bottom-8 right-8 z-20 text-white text-7xl -rotate-90 font-bold font-jacquarda cursor-pointer hover:-translate-y-1 transition-transform"
+        >
+          {"->"}
+        </button>
+      </section>
     </div>
-
-
   );
 }
